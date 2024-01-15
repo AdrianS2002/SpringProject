@@ -1,27 +1,62 @@
 package org.example.tutorial.models;
 
-import jakarta.persistence.Entity;
-import jakarta.validation.constraints.NotNull;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.NaturalId;
+
+import java.time.LocalDate;
+import java.util.*;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
-public class User extends  AbstractEntity{
-    @NotNull
+@Table(name = "USERS")
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @NonNull
+    @Column(unique = true)
     private String username;
-    @NotNull
+
+    @NonNull
     private String password;
 
-    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-        this.password = encoder.encode(password);
-    }
-    public User(){}
-    public boolean PasswordMatch(String password){
-        return encoder.matches(password,this.password);
-    }
-    public String getUsername(){
-        return username;
-    }
+    @Singular
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "users_roles",
+            joinColumns = {
+                    @JoinColumn(name = "USERS_ID",
+                            referencedColumnName = "ID")},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "ROLES_ID",
+                            referencedColumnName = "ID")})
+    private List<Role> roles;
+
+    @Builder.Default
+    private Boolean accountNonExpired = true;
+
+    @Builder.Default
+    private Boolean accountNonLocked = true;
+
+    @Builder.Default
+    private Boolean credentialsNonExpired = true;
+
+    @Builder.Default
+    private Boolean enabled = true;
+
+    private String firstName;
+
+    private String lastName;
+
+    @NaturalId(mutable = true)
+    private String emailAddress;
+
+    private LocalDate birthdate;
+
 }

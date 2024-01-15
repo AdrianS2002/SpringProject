@@ -3,6 +3,7 @@ package org.example.tutorial.controllers;
 import jakarta.validation.Valid;
 import org.example.tutorial.data.TagRepository;
 import org.example.tutorial.models.Tag;
+import org.example.tutorial.service.tag.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
@@ -15,12 +16,12 @@ import org.springframework.web.bind.annotation.*;
 public class TagController {
 
     @Autowired
-    TagRepository tagRepository;
+    TagService tagService;
 
     @GetMapping
     public String displayTags(Model model){
         model.addAttribute("title","All Tags");
-        model.addAttribute("tags",tagRepository.findAll());
+        model.addAttribute("tags",tagService.findAll());
         return "tags/index";
     }
 
@@ -38,13 +39,13 @@ public class TagController {
             model.addAttribute(tag);
             return "tags/create";
         }
-        tagRepository.save(tag);
+        tagService.save(tag);
         return "redirect:/tags";
     }
     @GetMapping("delete")
     public String displayDeleteTagForm(Model model){
         model.addAttribute("title","Delete Tag");
-        model.addAttribute("tags",tagRepository.findAll());
+        model.addAttribute("tags",tagService.findAll());
         return "tags/delete";
     }
 
@@ -52,7 +53,7 @@ public class TagController {
     public String processDeleteTagForm(@RequestParam(required = false) int[] tagIds){
         if(tagIds != null){
             for(int id : tagIds){
-                tagRepository.deleteById(id);
+                tagService.deleteById(id);
             }
         }
         return "redirect:/tags";

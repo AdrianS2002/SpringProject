@@ -1,8 +1,8 @@
 package org.example.tutorial.controllers;
 
 import jakarta.validation.Valid;
-import org.example.tutorial.data.EventCategoryRepository;
 import org.example.tutorial.models.EventCategory;
+import org.example.tutorial.service.eventCategory.EventCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class EventCategoryController {
 
     @Autowired
-    private EventCategoryRepository eventCategoryRepository;
+    private EventCategoryService eventCategoryService;
 
     @GetMapping
     public String displayAllCategories(Model model) {
         model.addAttribute("title", "All Categories");
-        model.addAttribute("categories", eventCategoryRepository.findAll());
+        model.addAttribute("categories", eventCategoryService.findAll());
         return "eventCategories/index";
     }
 
@@ -41,7 +41,7 @@ public class EventCategoryController {
             model.addAttribute(new EventCategory());
             return "eventCategories/create";
         }
-        eventCategoryRepository.save(eventCategory);
+        eventCategoryService.save(eventCategory);
         return "redirect:/eventCategories";
     }
 

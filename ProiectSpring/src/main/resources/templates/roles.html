@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head th:replace="~{fragmentUser :: head}"></head>
+
+<body>
+<div th:replace="~{fragmentUser :: header}"></div>
+
+<div class="body">
+    <h1>Authorities</h1>
+    <div th:replace="~{fragmentUser :: roles_table}"></div>
+</div>
+
+<div th:replace="~{fragmentUser :: footer}"></div>
+</body>
+</html>

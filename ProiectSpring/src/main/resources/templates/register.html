@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head th:replace="~{fragmentUser :: head}"></head>
+
+<body class="d-flex flex-column min-vh-100">
+<div class="container">
+    <h1 class="h3 mb-3 fw-normal">Register page</h1>
+
+    <div th:switch="${registrationSuccess}">
+        <div th:case="'Success'" class="alert alert-success">
+            <strong>Success!</strong> Operation performed successfully.
+        </div>
+        <div th:case="'Failed'" class="alert alert-danger">
+            <strong>Failure!</strong> Operation failed. Please try again
+        </div>
+    </div>
+
+    <form th:action="@{/createUser}" method="post" th:object="${user}" class="form-signin">
+        <div class="form-floating">
+            <input type="text"  id="username" autofocus="autofocus"
+                   class="form-control" required name="username" th:field="*{username}" >
+            <label for="username">Username</label>
+        </div>
+
+        <div class="form-floating">
+            <input type="text"  id="firstName" autofocus="autofocus"
+                   class="form-control" required name="firstName" th:field="*{firstName}" >
+            <label for="firstName">First Name</label>
+        </div>
+
+        <div class="form-floating">
+            <input type="text"  id="lastName" autofocus="autofocus"
+                   class="form-control" required name="lastName" th:field="*{lastName}" >
+            <label for="lastName">Last Name</label>
+        </div>
+
+        <div class="form-floating">
+            <input type="text"  id="emailAddress" autofocus="autofocus"
+                   class="form-control" required name="emailAddress" th:field="*{emailAddress}" >
+            <label for="emailAddress">Email</label>
+        </div>
+
+        <div class="form-floating">
+            <input type="password"  id="password" autofocus="autofocus"
+                   class="form-control" required name="password" th:field="*{password}" >
+            <label for="password">Password</label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
+        <p class="mt-5 mb-3 text-muted text-center">Registered already? <a href="/" th:href="@{/login}">Login here.</a></p>
+    </form>
+</div>
+
+<footer th:replace="~{fragmentUser :: footer}" class="footer mt-auto py-3 bg-light text-center">
+    <div class="container d-flex align-items-center justify-content-center" style="height: 100vh; border: 1px solid black;">
+        <span class="text-muted">Inginerie Software 2024</span>
+    </div>
+</footer>
+</body>
+</html>
