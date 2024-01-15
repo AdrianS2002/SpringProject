@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <title th:text="${title}">Title</title>
+</head>
+
+<nav th:fragment="header" class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">   <a class="nav-link" href="/login"><span sec:authorize="!isAuthenticated()">Login</span></a></li>
+            <li class="nav-item">   <a class="nav-link" href="/register"><span sec:authorize="!isAuthenticated()">Register</span></a></li>
+            <li class="nav-item">   <a class="nav-link" href="/logout"><span sec:authorize="isAuthenticated()">Logout</span></a></li>
+            <li class="nav-item">    <a class="nav-link" href="/"><span sec:authorize="isAuthenticated()">Home</span></a></li>
+            <li class="nav-item">    <a class="nav-link" href="/users"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Users</span></a></li>
+            <li class="nav-item">    <a class="nav-link" href="/user"><span sec:authorize="isAuthenticated() and hasAuthority('USER')">User</span></a></li>
+            <li class="nav-item">    <a class="nav-link" href="/roles"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Roles</span></a></li>
+            <li class="nav-item">    <a class="nav-link" href="/admin"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Admin</span></a></li>
+            <li class="nav-item">    <a class="nav-link" href="/events"><span sec:authorize="isAuthenticated() and hasAuthority('USER')">Events</span></a></li>
+        </ul>
+    </div>
+</nav>
+
+<div th:fragment="roles_table" class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Authority</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="role : ${roles}">
+            <td th:text="${role.role}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:fragment="users_table" class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Username</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">E-mail address</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.emailAddress}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer th:fragment="footer" class="footer mt-auto py-3 bg-light text-center">
+    <div class="container d-flex align-items-center justify-content-center">
+        <span class="text-muted">Inginerie Software 2024</span>
+    </div>
+</footer>
+
+</html>

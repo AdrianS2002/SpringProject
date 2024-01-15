@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head th:replace="~{fragmentUser :: head}"></head>
+
+<body class="d-flex flex-column min-vh-100">
+<div class="header" th:replace="~{fragmentUser :: header}"></div>
+<div class="container">
+    <h1 class="h3 mb-3 fw-normal">Spring Boot Security Tutorial</h1>
+    <h2 class="alert alert-danger">Server error!</h2>
+</div>
+
+<footer th:replace="~{fragmentUser :: footer}" class="footer mt-auto py-3 bg-light text-center">
+    <div class="container d-flex align-items-center justify-content-center" style="height: 100vh; border: 1px solid black;">
+        <span class="text-muted">Inginerie Software 2024</span>
+    </div>
+</footer>
+</body>
+</html>

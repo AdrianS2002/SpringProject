@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="~{fragments :: head}">
+<body class="container">
+
+<header th:replace="~{fragments :: header}"></header>
+
+<form method="post">
+    <div class="form-group">
+        <label>Name
+            <input th:field="${eventCategory.name}" class="form-control">
+        </label>
+        <span th:errors="${eventCategory.name}" class="error"></span>
+    </div>
+    <input type="submit" value="Create" class="btn btn-primary">
+</form>
+<footer th:fragment="footer" class="footer mt-auto py-3 bg-light text-center">
+    <div class="container d-flex align-items-center justify-content-center">
+        <span class="text-muted">Inginerie Software 2024</span>
+    </div>
+</footer>
+</body>
+</html>

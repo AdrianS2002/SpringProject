@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}"></head>
+<body class="container">
+<h1>Delete Tags</h1>
+<header th:replace="~{fragments :: header}"></header>
+
+<form method="post">
+    <th:block th:each="tag : ${tags}">
+        <div class="form-group">
+            <label>
+                <span th:text="${tag.name}"></span>
+                <input type="checkbox" name="tagIds" th:value="${tag.id}" class="form-check">
+            </label>
+        </div>
+    </th:block>
+    <input type="submit" value="Delete" class="btn btn-danger">
+    </form>
+</body>
+<footer th:fragment="footer" class="footer mt-auto py-3 bg-light text-center">
+    <div class="container d-flex align-items-center justify-content-center">
+        <span class="text-muted">Inginerie Software 2024</span>
+    </div>
+</footer>
+</html>

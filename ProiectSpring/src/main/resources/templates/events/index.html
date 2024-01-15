@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}">
+<body class="container">
+<h1 style="color: brown">All Events</h1>
+<header th:replace="~{fragments :: header}"></header>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Event Name</th>
+        </tr>
+    </thead>
+
+    <tr th:each="event : ${events}">
+        <td>
+            <td><a th:href="'/events/detail?eventId=' + ${event.id}" th:text="${event.name}"></a>
+        </td>
+    </tr>
+
+</table>
+<footer th:fragment="footer" class="footer mt-auto py-3 bg-light text-center">
+    <div class="container d-flex align-items-center justify-content-center">
+        <span class="text-muted">Inginerie Software 2024</span>
+    </div>
+</footer>
+</body>
+</html>
